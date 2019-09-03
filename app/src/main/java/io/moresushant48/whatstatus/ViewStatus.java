@@ -63,8 +63,11 @@ public class ViewStatus extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND)
-                        .setType("image/jpg")
                         .putExtra(Intent.EXTRA_STREAM, Uri.parse(intent.getStringExtra("image")));
+                if(intent.getStringExtra("image").endsWith(".jpg"))
+                    shareIntent.setType("image/*");
+                else if(intent.getStringExtra("image").endsWith(".mp4"))
+                    shareIntent.setType("video/*");
                 startActivity(Intent.createChooser(shareIntent, "Share using"));
             }
         });
