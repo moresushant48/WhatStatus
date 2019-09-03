@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WhatStatus</string>
+    <string name="title_activity_mi_about">miAbout</string>
+    <string name="devloper_name">Sushant More</string>
+    <string name="devloper_username">\@moresushant48</string>
+    <string name="purpose">WhatStatus is developed to easily view and manage current whatsapp statuses of your friends.</string>
+</resources>
