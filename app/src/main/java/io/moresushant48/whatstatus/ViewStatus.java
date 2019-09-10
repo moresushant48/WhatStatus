@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.support.v7.widget.Toolbar;
 import android.widget.VideoView;
+
+import java.io.File;
 
 public class ViewStatus extends AppCompatActivity {
 
@@ -62,8 +65,12 @@ public class ViewStatus extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                File file = new File(intent.getStringExtra("image"));
+                Uri uri = FileProvider.getUriForFile(ViewStatus.this,BuildConfig.APPLICATION_ID + ".provider", file);
+
                 Intent shareIntent = new Intent(Intent.ACTION_SEND)
-                        .putExtra(Intent.EXTRA_STREAM, Uri.parse(intent.getStringExtra("image")));
+                        .putExtra(Intent.EXTRA_STREAM, uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 if(intent.getStringExtra("image").endsWith(".jpg"))
                     shareIntent.setType("image/*");
                 else if(intent.getStringExtra("image").endsWith(".mp4"))
