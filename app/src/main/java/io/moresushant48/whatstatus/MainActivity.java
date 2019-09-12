@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private GridView gridView;
     private GetFiles getFiles = new GetFiles();
     private Uri[] images;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         gridView = findViewById(R.id.grid);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+
         images = getFiles.getFiles(this);
 
         for(Uri image : images){
@@ -66,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, ViewStatus.class);
                 intent.putExtra("image", images[position].toString());
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                startApp();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -101,5 +113,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this,miAbout.class));
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

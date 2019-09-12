@@ -32,12 +32,19 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <GridView
-            android:id="@+id/grid"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:numColumns="auto_fit"/>
+            android:layout_height="match_parent">
+
+            <GridView
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:numColumns="auto_fit"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 </LinearLayout>
